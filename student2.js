@@ -1,101 +1,90 @@
-// Global variables for fake business
-var companyname4 = "Valencia Book House";
-var address4 = "962 Main St. Valencia, CA 91344";
-var phonenumber5 = "(555) 638-1234";
+// ---------------------- Products ----------------------
+var product1 = { name: "Book 1", id: "b101", desc: "An exciting adventure book" };
+var product2 = { name: "Book 2", id: "b102", desc: "A thrilling mystery novel" };
+var product3 = { name: "Book 3", id: "b103", desc: "A comprehensive science guide" };
 
-// Global URL bases
-var imgurl739 = 'images/';  // relative path to images folder
-var cardimgurl550 = 'https://www.college1.com/images/cards/gbCard';  // blackjack cards
+// Global variables for images
+var imgurl739 = "images/";  // adjust folder as needed
 
-// Product objects (Books for this example)
-var product1 = { name:"The Cosmos Explained", id:"book001", desc:"A complete guide to understanding the universe." };
-var product2 = { name:"Journey Through Space", id:"book002", desc:"Explore the wonders of space travel." };
-var product3 = { name:"Astronomy for Beginners", id:"book003", desc:"Learn the basics of stargazing and planets." };
+// ---------------------- Pop-up Ads ----------------------
+var adnum899 = 1;
+var winobj412 = -1;
 
-// Global variable for tracking cards in hand
-var cardnum580 = -1;  // -1 = game not active, 0-4 = visible cards
+function popupAd835() {
+  if (winobj412 && !winobj412.closed) {
+    winobj412.focus();
+    return;
+  }
+  var adHtml = "";
+  if (adnum899 === 1) {
+    adHtml = "<table width='500' height='80' bgcolor='lightgreen'><tr><td><h2 align='center'>Sale! 20% Off All Books!</h2></td></tr></table>";
+  } else if (adnum899 === 2) {
+    adHtml = "<table width='400' height='100' bgcolor='lightblue'><tr><td><h3 align='center'>New Arrivals: Mystery Novels!</h3></td></tr></table>";
+  } else if (adnum899 === 3) {
+    adHtml = "<table width='450' height='90' bgcolor='lightyellow'><tr><td><h2 align='center'>Get Your Science Guides Today!</h2></td></tr></table>";
+  }
 
-// Header function
+  winobj412 = window.open("", "popupAd", "width=520,height=120");
+  winobj412.document.write(adHtml);
+  winobj412.document.close();
+
+  adnum899++;
+  if (adnum899 > 3) adnum899 = 1;
+}
+
+function closeAd835() {
+  if (winobj412 && !winobj412.closed) {
+    winobj412.close();
+  }
+}
+
+// ---------------------- Page Functions ----------------------
 function getHeader() {
-  return "<h1 style='color:#004488; font-size:2.5em;'>" + companyname4 + "</h1>";
+  return "<h1>Welcome to My Book Store</h1>";
 }
 
-// Footer function
-function getFooter(name, address, phone) {
-  return "<p style='color:#666;'>" 
-       + name + " | " + address + " | " + phone
-       + " | " + navigator.appName
-       + " " + navigator.appVersion
-       + " | " + navigator.platform
-       + "</p>";
+function getFooter() {
+  return "<p>&copy; 2025 My Book Store</p>";
 }
 
-// Build Menu with product buttons + Deal Cards + Hit Card
 function makeMenu2() {
-  var menuHTML = "Menu: ";
-  menuHTML += "<button onclick='execButton382(product1)'>Product #1</button>";
-  menuHTML += "<button onclick='execButton382(product2)'>Product #2</button>";
-  menuHTML += "<button onclick='execButton382(product3)'>Product #3</button>";
-  menuHTML += "<button onclick='dealCards649()'>Deal Cards</button>";
-  menuHTML += "<button onclick='hitCard896()'>Hit Card</button>";
-  return menuHTML;
+  return `
+    <button onclick="showProduct(product1)">Product #1</button>
+    <button onclick="showProduct(product2)">Product #2</button>
+    <button onclick="showProduct(product3)">Product #3</button>
+    <button onclick="popupAd835()">PopUp Ad</button>
+    <button onclick="closeAd835()">Close Ad</button>
+  `;
 }
 
-// Build Shopping Cart Link Bar
-function makeLinkBar432(myproduct) {
-  var linkHTML = "<form target='paypal' action='https://www.paypal.com/cgi-bin/webscr' method='post'>"
-               + "<input type='hidden' name='business' value='kin@kinskards.com'>"
-               + "<input type='hidden' name='cmd' value='_cart'>"
-               + "<input type='hidden' name='add' value='1'>"
-               + "<input type='hidden' name='item_name' value='" + myproduct.name + "'>"
-               + "<input type='hidden' name='amount' value='3.95'>"
-               + "<input type='hidden' name='currency_code' value='USD'>"
-               + "<input type='image' name='submit' src='https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif' alt='Add to Cart'>"
-               + "<img alt='' width='1' height='1' src='https://www.paypalobjects.com/en_US/i/scr/pixel.gif'>"
-               + "</form>";
-  return linkHTML;
-}
-
-// Build main section with product details + image + shopping cart
 function makeMain9(myproduct) {
-  var produrl = imgurl739 + myproduct.id + '.gif';
-  return "My Product:<br>" +
-         "Product Name: " + myproduct.name + "<br>" +
-         "Product ID: " + myproduct.id + "<br>" +
-         "Product Description: " + myproduct.desc + "<br>" +
-         makeLinkBar432(myproduct) + "<br>" +
-         "Product Image: <br><img src='" + produrl + "' alt='" + myproduct.name + "'>";
+  var produrl = imgurl739 + myproduct.id + ".gif";
+  return `
+    <p>My Product:</p>
+    <p>Product Name: ${myproduct.name}</p>
+    <p>Product ID: ${myproduct.id}</p>
+    <p>Product Description: ${myproduct.desc}</p>
+    <p><img src="${produrl}" alt="${myproduct.name}"></p>
+    <p>${makeLinkBar432(myproduct)}</p>
+  `;
 }
 
-// Execute button click to change product
-function execButton382(myproduct) {
-  document.getElementById("main895").innerHTML = makeMain9(myproduct);
-  cardnum580 = -1;  // reset card game when showing product
+// Shopping cart placeholder
+function makeLinkBar432(product) {
+  return `
+    <form target='paypal' action='https://www.paypal.com/cgi-bin/webscr' method='post'>
+      <input type='hidden' name='business' value='test@example.com'>
+      <input type='hidden' name='cmd' value='_cart'>
+      <input type='hidden' name='add' value='1'>
+      <input type='hidden' name='item_name' value='${product.name}'>
+      <input type='hidden' name='amount' value='10.00'>
+      <input type='hidden' name='currency_code' value='USD'>
+      <input type='image' name='submit' src='https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif' alt='Add to Cart'>
+    </form>
+  `;
 }
 
-// Deal cards function
-function dealCards649() {
-  var cardHTML = "";
-  for (var i = 0; i < 5; i++) {
-    var cardnumber = (i < 2) ? i : 52;  // first 2 face up, last 3 face down
-    var cardurl = cardimgurl550 + cardnumber + '.gif';
-    cardHTML += "<img id='card" + i + "' src='" + cardurl + "' alt='Card " + i + "'> ";
-  }
-  document.getElementById("main895").innerHTML = cardHTML;
-  cardnum580 = 2; // 2 cards visible initially
-}
-
-// Hit card function
-function hitCard896() {
-  if (cardnum580 === -1) {
-    alert("The card game is not active. Click 'Deal Cards' first.");
-    return;
-  }
-  if (cardnum580 >= 5) {
-    alert("Maximum cards already visible.");
-    return;
-  }
-  var cardurl = cardimgurl550 + cardnum580 + '.gif'; // flip next card
-  document.getElementById("card" + cardnum580).src = cardurl;
-  cardnum580++;  // increment visible card count
+// Display a product in main section
+function showProduct(prod) {
+  document.getElementById("main895").innerHTML = makeMain9(prod);
 }
