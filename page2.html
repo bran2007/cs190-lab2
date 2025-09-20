@@ -2,35 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CS190 Lab 2 - Web Page #2</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #head123, #foot456 { background-color: #eef; padding: 10px; text-align: center; }
-    #menu516 { background-color: #dde; padding: 10px; margin: 10px 0; }
-    #main895 { background-color: #fff; padding: 10px; border: 1px solid #ccc; }
-    button { margin: 5px; padding: 5px 10px; }
-    img { max-height: 150px; margin: 5px; }
-  </style>
+  <title>CS190 Web Page 2</title>
 </head>
 <body>
 
-<div id="head123"></div>
+<div id="header">Header Section</div>
 <hr>
-<div id="menu516"></div>
+<div id="menu516">Menu Section</div>
 <hr>
-<div id="main895"></div>
+<div id="main895">Main Section</div>
 <hr>
-<div id="foot456"></div>
+<div id="foot123">Footer Section</div>
 
-<!-- Include your JavaScript file -->
 <script src="student2.js"></script>
-
 <script>
-  // Initialize page
-  document.getElementById("head123").innerHTML = getHeader();
-  document.getElementById("foot456").innerHTML = getFooter(companyname4, address4, phonenumber5);
+  // Initialize the page
+  document.getElementById("header").innerHTML = getHeader();
+  document.getElementById("foot123").innerHTML = getFooter();
   document.getElementById("menu516").innerHTML = makeMenu2();
-  document.getElementById("main895").innerHTML = makeMain9(product1); // default product displayed
+  document.getElementById("main895").innerHTML = makeMain9(product1);
 </script>
 
 </body>
