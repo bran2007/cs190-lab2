@@ -1,12 +1,18 @@
-// Variables created at the top of JavaScript file (not in a function)
-var thename = "Brandon Chang";
-var my_message = "cs190 Javascript Lab 2";
-var id = 878;
+// Global variables for fake business
+var companyname4 = "Valencia Book House";
+var address4 = "962 Main St. Valencia, CA 91344";
+var phonenumber5 = "(555) 638-1234";
 
-// Function to display all variable information in an alert box
-function displayinfo871() {
-    var message = "Name: " + thename + "\n" + 
-                  "Message: " + my_message + "\n" + 
-                  "ID: " + id;
-    alert(message);
+// Function to build header using the global variables
+function getHeader() {
+  var headerHTML = "<h1 style='color:#004488; font-size:2.5em;'>" + companyname4 + "</h1>";
+  return headerHTML;
+}
+
+// Function to build footer using parameters (no hardcoding)
+function getFooter(name, address, phone) {
+  var footerHTML = "<p style='color:#666;'>" 
+                 + name + " | " + address + " | " + phone 
+                 + "</p>";
+  return footerHTML;
 }
