@@ -2,46 +2,14 @@
 <!--
  * Who: Brandon Chang
  * What: CMP SCI cs190 Lab Web Page #2 Project
- * When: 09/19/25
- * What: Lab Web Page #2 - Final Version
+ * When: 09/19/25  
+ * What: Lab Web Page #2
 -->
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Valencia Book House</title>
-  <script src="student2.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    #head962 {
-      text-align: center;
-      background-color: #dceeff;
-      padding: 20px;
-    }
-    #menu516 {
-      background-color: #f2f2f2;
-      padding: 15px;
-      text-align: center;
-    }
-    #menu516 button {
-      margin: 5px;
-      padding: 10px 15px;
-      font-size: 1em;
-    }
-    #main895 {
-      padding: 20px;
-      min-height: 200px;
-    }
-    #foot638 {
-      text-align: center;
-      background-color: #eeeeee;
-      padding: 10px;
-      font-size: 0.9em;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Lab Web Page #2</title>
+<script src="student2.js"></script>
 </head>
 
 <body>
@@ -53,22 +21,19 @@
   <div id="menu516"></div>
   <hr>
 
-  <!-- Main -->
-  <div id="main895"></div>
+  <!-- Main/Product Section -->
+  <div id="main895">Main Web Page</div>
   <hr>
 
   <!-- Footer -->
   <div id="foot638"></div>
 
-  <!-- JS calls -->
+  <!-- Call functions to initialize sections -->
   <script>
-    // Header & footer
     document.getElementById("head962").innerHTML = getHeader();
     document.getElementById("foot638").innerHTML = getFooter(companyname4, address4, phonenumber5);
-
-    // Menu & main
     document.getElementById("menu516").innerHTML = makeMenu2();
-    document.getElementById("main895").innerHTML = makeMain9(product1); // default product
+    document.getElementById("main895").innerHTML = makeMain9(product1); // default product displayed
   </script>
 </body>
 </html>
