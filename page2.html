@@ -1,39 +1,37 @@
-<!doctype html>
-<!--
- * Who: Brandon Chang
- * What: CMP SCI cs190 Lab Web Page #2 Project
- * When: 09/19/25  
- * What: Lab Web Page #2
--->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Lab Web Page #2</title>
-<script src="student2.js"></script>
+  <meta charset="UTF-8">
+  <title>CS190 Lab 2 - Web Page #2</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #head123, #foot456 { background-color: #eef; padding: 10px; text-align: center; }
+    #menu516 { background-color: #dde; padding: 10px; margin: 10px 0; }
+    #main895 { background-color: #fff; padding: 10px; border: 1px solid #ccc; }
+    button { margin: 5px; padding: 5px 10px; }
+    img { max-height: 150px; margin: 5px; }
+  </style>
 </head>
-
 <body>
-  <!-- Header -->
-  <div id="head962"></div>
-  <hr>
 
-  <!-- Menu -->
-  <div id="menu516"></div>
-  <hr>
+<div id="head123"></div>
+<hr>
+<div id="menu516"></div>
+<hr>
+<div id="main895"></div>
+<hr>
+<div id="foot456"></div>
 
-  <!-- Main/Product Section -->
-  <div id="main895">Main Web Page</div>
-  <hr>
+<!-- Include your JavaScript file -->
+<script src="student2.js"></script>
 
-  <!-- Footer -->
-  <div id="foot638"></div>
+<script>
+  // Initialize page
+  document.getElementById("head123").innerHTML = getHeader();
+  document.getElementById("foot456").innerHTML = getFooter(companyname4, address4, phonenumber5);
+  document.getElementById("menu516").innerHTML = makeMenu2();
+  document.getElementById("main895").innerHTML = makeMain9(product1); // default product displayed
+</script>
 
-  <!-- Call functions to initialize sections -->
-  <script>
-    document.getElementById("head962").innerHTML = getHeader();
-    document.getElementById("foot638").innerHTML = getFooter(companyname4, address4, phonenumber5);
-    document.getElementById("menu516").innerHTML = makeMenu2();
-    document.getElementById("main895").innerHTML = makeMain9(product1); // default product displayed
-  </script>
 </body>
 </html>
