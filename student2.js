@@ -3,16 +3,20 @@
 // =======================
 var imgurl739 = 'images/';        // product images folder
 var cardimgurl550 = 'images/cards/gbCard';  // card images folder
-var cardnum580 = -1;              // for blackjack cards, -1 = not on screen
-var adnum899 = 1;                 // for popup ads
+var cardnum580 = -1;              // blackjack cards, -1 = not on screen
+var adnum899 = 1;                 // popup ad number
 var winobj412 = -1;               // popup ad window object
 
-// =======================
-// Products
-// =======================
-var product1 = { name: "Space Explorer Book", id: "101", desc: "A thrilling space adventure book for kids."};
-var product2 = { name: "Planet Poster Set", id: "102", desc: "Educational posters featuring planets and stars."};
-var product3 = { name: "Astronomy Kit", id: "103", desc: "Hands-on kit to explore space and stars."};
+// Hard-coded products
+var product1 = { "name":"Space Explorer Book", "id":"101", "desc":"A thrilling space adventure book for kids."};
+var product2 = { "name":"Planet Poster Set", "id":"102", "desc":"Educational posters featuring planets and stars."};
+var product3 = { "name":"Astronomy Kit", "id":"103", "desc":"Hands-on kit to explore space and stars."};
+
+// Server-requested products (Lab 15)
+var product4 = {}; 
+var product5 = {};
+var jsonobj4 = { "type":"books", "number":"1" };
+var jsonobj5 = { "type":"books", "number":"2" };
 
 // =======================
 // Header/Footer
@@ -33,6 +37,8 @@ function makeMenu2() {
     html += "<button onclick='execButton382(product1)'>Product #1</button>";
     html += "<button onclick='execButton382(product2)'>Product #2</button>";
     html += "<button onclick='execButton382(product3)'>Product #3</button>";
+    html += "<button onclick='execButton382(product4)'>Product #4</button>";
+    html += "<button onclick='execButton382(product5)'>Product #5</button>";
     html += "<button onclick='dealCards649()'>Deal Cards</button>";
     html += "<button onclick='hitCard896()'>Hit Card</button>";
     html += "<button onclick='popupAd835()'>PopUp Ad</button>";
@@ -160,4 +166,24 @@ function checkForm453() {
     }
     form.action = "https://www.college1.com/classes/javascript/survey.php";
     return true;
+}
+
+// =======================
+// Lab 15: Get Products from Server
+// =======================
+function getProduct902(jsonobj) {
+    var server = 'https://www.college1.com/getproduct.php';
+    var jsonstr = JSON.stringify(jsonobj);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", server + "?jsonstr=" + jsonstr, true);
+    xmlhttp.send();
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var replystr = this.responseText;
+            if (!product4.id) product4 = JSON.parse(replystr);
+            else if (!product5.id) product5 = JSON.parse(replystr);
+            else console.log('Error, no object variable available');
+        }
+    };
 }
