@@ -1,46 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GalaxSea Explorers Store</title>
-    <meta charset="UTF-8">
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f8ff; margin: 20px; }
-        h1 { color: #003366; text-align: center; }
-        #menu895 { margin-bottom: 20px; }
-        button { margin: 2px; padding: 5px 10px; }
-        #main895 img { margin: 5px; }
-    </style>
+  <title>GalaxSea Explorers Store</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #menu { margin-bottom: 20px; }
+    #menu button { margin-right: 10px; padding: 5px 10px; }
+    #mainXXX { border: 1px solid #ccc; padding: 10px; width: 600px; }
+  </style>
 </head>
 <body>
-    <div id="header895">
-        <h1>GalaxSea Explorers Store</h1>
-    </div>
 
-    <div id="menu895">
-        <script>
-            document.getElementById("menu895").innerHTML = makeMenu2();
-        </script>
-    </div>
+<h1>GalaxSea Explorers Store</h1>
+<p>Welcome! Choose a product or action from the menu.</p>
 
-    <hr>
+<div id="menu"></div>
+<div id="mainXXX"></div>
 
-    <div id="main895">
-        <p>Welcome! Choose a product or action from the menu.</p>
-    </div>
+<script src="student2.js"></script>
+<script>
+  // Call menu to create buttons and display default product
+  makeMenu123();
+  document.getElementById("mainXXX").innerHTML = makeMain123(product1);
+</script>
 
-    <hr>
+<footer>
+  <p>© 2025 GalaxSea Explorers</p>
+</footer>
 
-    <div id="footer895">
-        <p>&copy; 2025 GalaxSea Explorers</p>
-    </div>
-
-    <!-- Call Lab 15 server requests for product4 and product5 -->
-    <script>
-        product4 = {}; getProduct902(jsonobj4);
-        product5 = {}; getProduct902(jsonobj5);
-    </script>
-
-    <!-- Include the main JS file -->
-    <script src="student2.js"></script>
 </body>
 </html>
