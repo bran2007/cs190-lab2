@@ -7,10 +7,13 @@ var phonenumber5 = "(555) 638-1234";
 var imgurl739 = 'https://www.college1.com/images/books/';  // book images
 var cardimgurl550 = 'https://www.college1.com/images/cards/gbCard';  // blackjack cards
 
-// Product objects (Books)
+// Product objects
 var product1 = { name:"The Cosmos Explained", id:"book001", desc:"A complete guide to understanding the universe." };
 var product2 = { name:"Journey Through Space", id:"book002", desc:"Explore the wonders of space travel." };
 var product3 = { name:"Astronomy for Beginners", id:"book003", desc:"Learn the basics of stargazing and planets." };
+
+// Global variable for tracking cards in hand
+var cardnum580 = -1;  // -1 = game not started, 0-4 = current visible cards
 
 // Header function
 function getHeader() {
@@ -27,13 +30,14 @@ function getFooter(name, address, phone) {
        + "</p>";
 }
 
-// Make menu with product buttons + Deal Cards
+// Make menu with product buttons + Deal Cards + Hit Card
 function makeMenu2() {
   var menuHTML = "Menu: ";
   menuHTML += "<button onclick='execButton382(product1)'>Product #1</button>";
   menuHTML += "<button onclick='execButton382(product2)'>Product #2</button>";
   menuHTML += "<button onclick='execButton382(product3)'>Product #3</button>";
   menuHTML += "<button onclick='dealCards649()'>Deal Cards</button>";
+  menuHTML += "<button onclick='hitCard896()'>Hit Card</button>";
   return menuHTML;
 }
 
@@ -51,6 +55,7 @@ function makeMain9(myproduct) {
 // Execute button click to change product
 function execButton382(myproduct) {
   document.getElementById("main895").innerHTML = makeMain9(myproduct);
+  cardnum580 = -1;  // reset card game when showing product
 }
 
 // Deal cards function
@@ -62,4 +67,20 @@ function dealCards649() {
     cardHTML += "<img id='card" + i + "' src='" + cardurl + "' alt='Card " + i + "'> ";
   }
   document.getElementById("main895").innerHTML = cardHTML;
+  cardnum580 = 2; // 2 cards visible initially
+}
+
+// Hit card function
+function hitCard896() {
+  if (cardnum580 === -1) {
+    alert("The card game is not active. Click 'Deal Cards' first.");
+    return;
+  }
+  if (cardnum580 >= 5) {
+    alert("Maximum cards already visible.");
+    return;
+  }
+  var cardurl = cardimgurl550 + cardnum580 + '.gif'; // flip next card
+  document.getElementById("card" + cardnum580).src = cardurl;
+  cardnum580++;  // increment visible card count
 }
