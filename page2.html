@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>CS190 Web Page 2</title>
+    <meta charset="UTF-8">
+    <title>GalaxSea Explorers Store</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #header, #menu, #main895, #footer { padding: 10px; }
+        #menu button { margin: 5px; padding: 5px 10px; }
+        hr { margin: 20px 0; }
+    </style>
 </head>
 <body>
+    <!-- Header Section -->
+    <div id="header">
+        <script>
+            document.write(getHeader());
+        </script>
+    </div>
+    <hr>
 
-<div id="header">Header Section</div>
-<hr>
-<div id="menu516">Menu Section</div>
-<hr>
-<div id="main895">Main Section</div>
-<hr>
-<div id="foot123">Footer Section</div>
+    <!-- Menu Section -->
+    <div id="menu">
+        <script>
+            document.write(makeMenu2());
+        </script>
+    </div>
+    <hr>
 
-<script src="student2.js"></script>
-<script>
-  // Initialize the page
-  document.getElementById("header").innerHTML = getHeader();
-  document.getElementById("foot123").innerHTML = getFooter();
-  document.getElementById("menu516").innerHTML = makeMenu2();
-  document.getElementById("main895").innerHTML = makeMain9(product1);
-</script>
+    <!-- Main/Product Section -->
+    <div id="main895">
+        <script>
+            document.write(makeMain9(product1));
+        </script>
+    </div>
+    <hr>
 
+    <!-- Footer Section -->
+    <div id="footer">
+        <script>
+            document.write(getFooter());
+        </script>
+    </div>
+
+    <!-- Scripts -->
+    <script src="student2.js"></script>
 </body>
 </html>
