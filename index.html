@@ -1,22 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<!--
+ * Who: Brandon Chang
+ * What: CMP SCI cs190 Lab Web Page #2 Project
+ * When: 09/19/25
+ * What: Lab Web Page #2
+-->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS190 JavaScript Lab 2</title>
-    <script src="student.js"></script>
+  <meta charset="UTF-8">
+  <title>Lab Web Page #2</title>
+  <script src="student2.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #head962 {
+      text-align: center;
+      background-color: #dceeff;
+      padding: 20px;
+    }
+    #foot638 {
+      text-align: center;
+      background-color: #eeeeee;
+      padding: 10px;
+      font-size: 0.9em;
+    }
+    .content {
+      text-align: center;
+      padding: 50px;
+    }
+  </style>
 </head>
+
 <body>
-    <h2>Lab 2 Assignment</h2>
-    <p><a href="#" onclick="displayinfo871()">Web Page Information</a></p>
-    
-    <hr>
-    
-    <h2>Lab 1 Assignment</h2>
-    <p><a href="#link1">Jump to (link1)</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="#link2">Jump to (link2)</a></p>
-    
-    <!-- Placeholder content for previous lab -->
-    <p id="link1">This is link1 content from Lab 1</p>
-    <p id="link2">This is link2 content from Lab 1</p>
+  <!-- Header placeholder -->
+  <div id="head962"></div>
+
+  <!-- Temporary middle content -->
+  <div class="content">
+    <p>Welcome to our fake business site! More content will be added later.</p>
+  </div>
+
+  <!-- Footer placeholder -->
+  <div id="foot638"></div>
+
+  <!-- Call JS functions to populate header and footer -->
+  <script>
+    document.getElementById("head962").innerHTML = getHeader();
+    document.getElementById("foot638").innerHTML = getFooter(companyname4, address4, phonenumber5);
+  </script>
 </body>
 </html>
+<!-- Brandon Chang, CMP SCI cs190 Lab Web Page #2 Project, Lab Web Page #2 -->
