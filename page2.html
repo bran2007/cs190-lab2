@@ -3,7 +3,7 @@
  * Who: Brandon Chang
  * What: CMP SCI cs190 Lab Web Page #2 Project
  * When: 09/19/25
- * What: Lab Web Page #2 - Lab 8
+ * What: Lab Web Page #2 - Lab 9
 -->
 <html>
 <head>
@@ -23,8 +23,13 @@
     }
     #menu516 {
       background-color: #f2f2f2;
-      padding: 10px;
+      padding: 15px;
       text-align: center;
+    }
+    #menu516 button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 1em;
     }
     #main895 {
       padding: 20px;
@@ -40,14 +45,19 @@
 </head>
 
 <body>
-  <!-- Header placeholder -->
+  <!-- Header -->
   <div id="head962"></div>
+  <hr>
 
-  <!-- New menu and main sections -->
-  <div id="menu516">Menu will load here</div>
-  <div id="main895">Main will load here</div>
+  <!-- Menu -->
+  <div id="menu516"></div>
+  <hr>
 
-  <!-- Footer placeholder -->
+  <!-- Main -->
+  <div id="main895"></div>
+  <hr>
+
+  <!-- Footer -->
   <div id="foot638"></div>
 
   <!-- JS calls -->
@@ -57,9 +67,9 @@
     document.getElementById("foot638").innerHTML = getFooter(companyname4, address4, phonenumber5);
 
     // Menu & main
-    document.getElementById("menu516").innerHTML = makeMenu2(3);  // Example: 3 buttons
-    document.getElementById("main895").innerHTML = makeMain9();
+    document.getElementById("menu516").innerHTML = makeMenu2();
+    document.getElementById("main895").innerHTML = makeMain9(product1); // default product
   </script>
 </body>
 </html>
-<!-- Brandon Chang, CMP SCI cs190 Lab Web Page #2 Project, Lab Web Page #2 Lab 8 -->
+<!-- Brandon Chang, CMP SCI cs190 Lab Web Page #2 Project, Lab Web Page #2 Lab 9 -->
