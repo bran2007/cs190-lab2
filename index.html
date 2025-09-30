@@ -1,32 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>GalaxSea Explorers Store</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #menu { margin-bottom: 20px; }
-    #menu button { margin-right: 10px; padding: 5px 10px; }
-    #mainXXX { border: 1px solid #ccc; padding: 10px; width: 600px; }
-  </style>
+<meta charset="UTF-8" />
+<title>CS190 Lab Web Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f8f9fa;
+    color: #333;
+  }
+  #menu {
+    margin-bottom: 20px;
+  }
+  button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  #mainXXX {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 15px;
+    min-height: 300px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table, td, th {
+    border: 1px solid #aaa;
+  }
+  td, th {
+    padding: 8px;
+  }
+</style>
 </head>
 <body>
 
-<h1>GalaxSea Explorers Store</h1>
-<p>Welcome! Choose a product or action from the menu.</p>
+<h1>CS190 Web Page Lab</h1>
 
 <div id="menu"></div>
-<div id="mainXXX"></div>
+<div id="mainXXX">Welcome! Click buttons above to start.</div>
 
-<script src="student2.js"></script>
 <script>
-  // Call menu to create buttons and display default product
-  makeMenu123();
-  document.getElementById("mainXXX").innerHTML = makeMain123(product1);
-</script>
+  // --- Global variables and setup ---
+  var cardnum580 = -1; // -1 means no cards visible
+  var product1 = {name:"HP 4426", id:"4426", desc:"Newest and Best Laptop from HP Computer"};
+  var product2 = {name:"Apple 88123 iPad", id:"88123", desc:"Apple Tablet Computer"};
+  var product3 = {name:"Dell Dimension 2400", id:"2400X", desc:"A fast 2.4 ghz computer"};
+  var product4 = {}; 
+  var product5 = {};
+  var jsonobj4 = {"type":"clothes", "number":"1"};
+  var jsonobj5 = {"type":"clothes", "number":"2"};
 
-<footer>
-  <p>© 2025 GalaxSea Explorers</p>
-</footer>
+  var imgurl = 'images/';  // adjust to your images folder URL or relative path
+
+  // --- Functions from Lab 7-13 plus additions from Lab 14 and Lab 15 ---
+
+  function makeMenu294() {
+    var html = '';
+    html += '<button onclick="showProduct(product1)">Product #1</button>';
+    html += '<button onclick="showProduct(product2)">Product #2</button>';
+    html += '<button onclick="showProduct(product3)">Product #3</button>';
+    html += '<button onclick="showProduct(product4)">Product #4</button>';
+    html += '<button onclick="showProduct(product5)">Product #5</button>';
+    html += '<button onclick="dealCards()">Deal Cards</button>';
+    html += '<button onclick="hitCard896()">Hit Card</button>';
+    html += '<button onclick="makeForm294()">Enter Data</button>';
+    document.getElementById('menu').innerHTML = html;
+  }
+
+  function showProduct(product) {
+    if (!product || !product.name) {
+      document.getElementById('mainXXX').innerHTML = '<p>No product information available.</p>';
+      return;
+    }
+    var produrl = imgurl + product.id + '.gif';
+    var html = '<h2>' + product.name + '</h2>';
+    html += '<img src="' + produrl + '" alt="' + product.name + '" style="max-height:200px;"><br>';
+    html += '<p>' + product.desc + '</p>';
+    document.getElementById('mainXXX').innerHTML = html;
+    cardnum580 = -1; // hide cards if shown
+  }
+
+  // --- Blackjack card game from previous labs ---
+  var cards = [ // simplified deck images for example
+    'images/card_back.gif',
+    'images/card_ace_spades.gif',
+    'images/card_2_spades.gif',
+    'images/card_3_spades.gif',
+    // add all 52 cards in your images folder with proper filenames
+  ];
+
+  function dealCards() {
+    var html = '<div>';
+    for (var i = 0; i < 5; i++) {
+      var cardSrc = i < 2 ? 'images/card_ace_spades.gif' : 'images/card_back.gif';
+      html += '<img id="card' + i + '" src="' + cardSrc + '" style="margin-right:10px;">';
+    }
+    html += '</div>';
+    document.getElementById('mainXXX').innerHTML = html;
+    cardnum580 = 2; // first two cards face up
+  }
+
+  function hitCard896() {
+    if (cardnum580 == -1) {
+      alert("No cards on screen. Deal cards first.");
+      return;
+    }
+    if (cardnum580 >= 5) {
+      alert("Maximum cards reached.");
+      return;
+    }
+    var card = document.getElementById('card' + cardnum580);
+    if (card) {
+      // flip card from back to front (example: use ace image for simplicity)
+      card.src = 'images/card_ace_spades.gif';
+      cardnum580++;
+    }
+  }
+
+  // --- Popup from Lab 8 ---
+  function popupWin() {
+    var width = 400, height = 300;
+    var x = (screen.width - width) / 2;
+    var y = (screen.height - height) / 2;
+    window.open('https://www.college1.com', 'popupWindow', 'width=' + width + ',height=' + height + ',left=' + x + ',top=' + y);
+  }
+
+  // --- Form from Lab 14 ---
+
+  function makeForm294() {
+    var html = '<form name="customerform" onsubmit="return checkForm453()" action="https://www.college1.com/classes/javascript/survey.php" method="POST">';
+    html += '<table border="1" width="100%">';
+    html += '<tr><td>First Name: <input type="text" name="firstname"></td><td>Last Name: <input type="text" name="lastname"></td></tr>';
+    html += '<tr><td colspan="2">Address: <input type="text" name="address" size="50"></td></tr>';
+    html += '<tr><td>City: <input type="text" name="city"></td><td>State: <input type="text" name="state" size="3"> Zip: <input type="text" name="zip" size="6"></td></tr>';
+    html += '<tr><td colspan="2">Email Address: <input type="text" name="emailaddr" size="50"></td></tr>';
+    html += '<tr><td><input type="submit" value="Submit"></td><td align="right"><input type="reset"></td></tr>';
+    html += '<input type="hidden" name="send_email" value="bwchang@my.canyons.edu">';
+    html += '</table></form>';
+    document.getElementById('mainXXX').innerHTML = html;
+  }
+
+  function checkForm453() {
+    var form = document.customerform;
+    var missingFields = [];
+
+    if (!form.firstname.value.trim()) missingFields.push("First Name");
+    if (!form.lastname.value.trim()) missingFields.push("Last Name");
+    if (!form.address.value.trim()) missingFields.push("Address");
+    if (!form.city.value.trim()) missingFields.push("City");
+    if (!form.state.value.trim()) missingFields.push("State");
+    if (!form.zip.value.trim()) missingFields.push("Zip");
+    if (!form.emailaddr.value.trim()) missingFields.push("Email Address");
+
+    if (missingFields.length > 0) {
+      alert("Please fill in the following fields:\n" + missingFields.join(", "));
+      return false; // cancel submit
+    }
+    return true; // allow submit
+  }
+
+  // --- Lab 15 - Get products from server (using XMLHttpRequest method) ---
+
+  function getProduct902(jsonobj) {
+    var server = 'https://www.college1.com/getproduct.php';
+    var jsonstr = JSON.stringify(jsonobj);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", server + "?jsonstr=" + encodeURIComponent(jsonstr), true);
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        var replystr = this.responseText;
+        var productObj = JSON.parse(replystr);
+        if (jsonobj.number === "1") {
+          product4 = productObj;
+        } else if (jsonobj.number === "2") {
+          product5 = productObj;
+        }
+      }
+    };
+    xmlhttp.send();
+  }
+
+  // --- On page load ---
+
+  window.onload = function () {
+    makeMenu294();
+    showProduct(product1);
+    getProduct902(jsonobj4);
+    getProduct902(jsonobj5);
+  };
+</script>
 
 </body>
 </html>
