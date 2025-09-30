@@ -34,6 +34,9 @@
   td, th {
     padding: 8px;
   }
+  .cartLinkBar {
+    margin-top: 10px;
+  }
 </style>
 </head>
 <body>
@@ -44,108 +47,179 @@
 <div id="mainXXX">Welcome! Click buttons above to start.</div>
 
 <script>
-  // --- Global variables and setup ---
-  var cardnum580 = -1; // -1 means no cards visible
-  var product1 = {name:"HP 4426", id:"4426", desc:"Newest and Best Laptop from HP Computer"};
-  var product2 = {name:"Apple 88123 iPad", id:"88123", desc:"Apple Tablet Computer"};
-  var product3 = {name:"Dell Dimension 2400", id:"2400X", desc:"A fast 2.4 ghz computer"};
-  var product4 = {}; 
-  var product5 = {};
-  var jsonobj4 = {"type":"clothes", "number":"1"};
-  var jsonobj5 = {"type":"clothes", "number":"2"};
+  // Base image URLs (use real URLs that exist)
+  var imgBaseUrl = 'https://www.college1.com/images/'; // product images base URL
+  var cardImgBaseUrl = 'https://www.college1.com/images/cards/gbCard'; // cards base URL (assumed pattern)
 
-  var imgurl = 'images/';  // adjust to your images folder URL or relative path
+  // Global variables
+  var cardnum580 = -1;
+  var hand = [];
 
-  // --- Functions from Lab 7-13 plus additions from Lab 14 and Lab 15 ---
+  // Hardcoded products
+  var product1 = { name:"HP 4426", id:"4426", desc:"Newest and Best Laptop from HP Computer" };
+  var product2 = { name:"Apple 88123 iPad", id:"88123", desc:"Apple Tablet Computer" };
+  var product3 = { name:"Dell Dimension 2400", id:"2400X", desc:"A fast 2.4 ghz computer" };
+  var product4 = {}; // to be fetched
+  var product5 = {}; // to be fetched
 
-  function makeMenu294() {
+  // JSON queries for server fetch
+  var jsonobj4 = { type:"clothes", number:"1" };
+  var jsonobj5 = { type:"dvdcd", number:"2" };
+
+  // Build menu
+  function makeMenu() {
     var html = '';
-    html += '<button onclick="showProduct(product1)">Product #1</button>';
-    html += '<button onclick="showProduct(product2)">Product #2</button>';
-    html += '<button onclick="showProduct(product3)">Product #3</button>';
-    html += '<button onclick="showProduct(product4)">Product #4</button>';
-    html += '<button onclick="showProduct(product5)">Product #5</button>';
-    html += '<button onclick="dealCards()">Deal Cards</button>';
+    html += '<button onclick="makeMain(product1)">Product #1</button>';
+    html += '<button onclick="makeMain(product2)">Product #2</button>';
+    html += '<button onclick="makeMain(product3)">Product #3</button>';
+    html += '<button onclick="makeMain(product4)">Product #4</button>';
+    html += '<button onclick="makeMain(product5)">Product #5</button>';
+    html += '<button onclick="dealCards649()">Deal Cards</button>';
     html += '<button onclick="hitCard896()">Hit Card</button>';
+    html += '<button onclick="popupAd835()">PopUp Ad</button>';
+    html += '<button onclick="closeAd835()">Close Ad</button>';
     html += '<button onclick="makeForm294()">Enter Data</button>';
     document.getElementById('menu').innerHTML = html;
   }
 
-  function showProduct(product) {
-    if (!product || !product.name) {
-      document.getElementById('mainXXX').innerHTML = '<p>No product information available.</p>';
+  // Show product in mainXXX div
+  function makeMain(product) {
+    cardnum580 = -1;
+    hand = [];
+
+    if (!product.name) {
+      document.getElementById('mainXXX').innerHTML = "<p>Product info not available yet. Please wait or try again later.</p>";
       return;
     }
-    var produrl = imgurl + product.id + '.gif';
+
+    // Build product image URL
+    var prodUrl = imgBaseUrl + product.id + '.gif';
+
+    // Build HTML
     var html = '<h2>' + product.name + '</h2>';
-    html += '<img src="' + produrl + '" alt="' + product.name + '" style="max-height:200px;"><br>';
+    html += "<img src='" + prodUrl + "' alt='" + product.name + "' style='max-width:200px; margin-bottom:10px; display:block;' onerror=\"this.onerror=null;this.src='https://via.placeholder.com/200x150?text=No+Image';\">";
     html += '<p>' + product.desc + '</p>';
+    html += makeLinkBar432(product);
+
     document.getElementById('mainXXX').innerHTML = html;
-    cardnum580 = -1; // hide cards if shown
   }
 
-  // --- Blackjack card game from previous labs ---
-  var cards = [ // simplified deck images for example
-    'images/card_back.gif',
-    'images/card_ace_spades.gif',
-    'images/card_2_spades.gif',
-    'images/card_3_spades.gif',
-    // add all 52 cards in your images folder with proper filenames
-  ];
+  // Shopping cart button (Paypal)
+  function makeLinkBar432(product) {
+    return `
+      <div class="cartLinkBar">
+        <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="business" value="test@yourbusiness.com">
+          <input type="hidden" name="cmd" value="_cart">
+          <input type="hidden" name="add" value="1">
+          <input type="hidden" name="item_name" value="${product.name}">
+          <input type="hidden" name="amount" value="9.99">
+          <input type="hidden" name="currency_code" value="USD">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" alt="Add to Cart">
+        </form>
+      </div>
+    `;
+  }
 
-  function dealCards() {
-    var html = '<div>';
-    for (var i = 0; i < 5; i++) {
-      var cardSrc = i < 2 ? 'images/card_ace_spades.gif' : 'images/card_back.gif';
-      html += '<img id="card' + i + '" src="' + cardSrc + '" style="margin-right:10px;">';
+  // Deal cards function
+  function dealCards649() {
+    cardnum580 = 2;
+    hand = [];
+
+    // Generate 5 unique random cards (0-51)
+    while (hand.length < 5) {
+      var card = Math.floor(Math.random() * 52);
+      if (!hand.includes(card)) hand.push(card);
     }
-    html += '</div>';
+
+    var html = "<h3>Blackjack Hand</h3>";
+    for (var i = 0; i < 5; i++) {
+      var cardUrl = (i < 2) ? (cardImgBaseUrl + hand[i] + ".gif") : (cardImgBaseUrl + "52.gif"); // "52.gif" is back of card
+      html += `<img id="card${i}" src="${cardUrl}" alt="Card ${i}" style="margin-right:5px; width:80px; height:120px;">`;
+    }
     document.getElementById('mainXXX').innerHTML = html;
-    cardnum580 = 2; // first two cards face up
   }
 
+  // Hit card function (flip next card face up)
   function hitCard896() {
-    if (cardnum580 == -1) {
-      alert("No cards on screen. Deal cards first.");
+    if (cardnum580 === -1) {
+      alert("Deal the cards first!");
       return;
     }
     if (cardnum580 >= 5) {
-      alert("Maximum cards reached.");
+      alert("No more cards to hit!");
       return;
     }
-    var card = document.getElementById('card' + cardnum580);
-    if (card) {
-      // flip card from back to front (example: use ace image for simplicity)
-      card.src = 'images/card_ace_spades.gif';
-      cardnum580++;
+    var cardIndex = cardnum580;
+    var cardElement = document.getElementById("card" + cardIndex);
+    if (!cardElement) {
+      alert("Card element not found!");
+      return;
     }
+    var cardValue = hand[cardIndex];
+    cardElement.src = cardImgBaseUrl + cardValue + ".gif";
+    cardnum580++;
   }
 
-  // --- Popup from Lab 8 ---
-  function popupWin() {
-    var width = 400, height = 300;
-    var x = (screen.width - width) / 2;
-    var y = (screen.height - height) / 2;
-    window.open('https://www.college1.com', 'popupWindow', 'width=' + width + ',height=' + height + ',left=' + x + ',top=' + y);
+  // Popup ads
+  var adnum899 = 1;
+  var winobj412 = null;
+
+  function popupAd835() {
+    if (winobj412 && !winobj412.closed) {
+      winobj412.focus();
+      return;
+    }
+    var adUrl;
+    if (adnum899 === 1) adUrl = 'https://www.college1.com/ads/ad1.html';
+    else if (adnum899 === 2) adUrl = 'https://www.college1.com/ads/ad2.html';
+    else adUrl = 'https://www.college1.com/ads/ad3.html';
+
+    winobj412 = window.open(adUrl, "PopUpAd", "width=500,height=500");
+    adnum899++;
+    if (adnum899 > 3) adnum899 = 1;
+  }
+  function closeAd835() {
+    if (winobj412 && !winobj412.closed) winobj412.close();
   }
 
-  // --- Form from Lab 14 ---
-
+  // Form creation and validation
   function makeForm294() {
-    var html = '<form name="customerform" onsubmit="return checkForm453()" action="https://www.college1.com/classes/javascript/survey.php" method="POST">';
-    html += '<table border="1" width="100%">';
-    html += '<tr><td>First Name: <input type="text" name="firstname"></td><td>Last Name: <input type="text" name="lastname"></td></tr>';
-    html += '<tr><td colspan="2">Address: <input type="text" name="address" size="50"></td></tr>';
-    html += '<tr><td>City: <input type="text" name="city"></td><td>State: <input type="text" name="state" size="3"> Zip: <input type="text" name="zip" size="6"></td></tr>';
-    html += '<tr><td colspan="2">Email Address: <input type="text" name="emailaddr" size="50"></td></tr>';
-    html += '<tr><td><input type="submit" value="Submit"></td><td align="right"><input type="reset"></td></tr>';
-    html += '<input type="hidden" name="send_email" value="bwchang@my.canyons.edu">';
-    html += '</table></form>';
-    document.getElementById('mainXXX').innerHTML = html;
+    cardnum580 = -1;
+    hand = [];
+
+    var formHTML = `
+      <h2>Customer Data Entry</h2>
+      <form name="customerform" onsubmit="return checkForm453()" method="post" action="https://www.college1.com/classes/javascript/survey.php">
+        <table width="100%" border="1">
+          <tr>
+            <td>First Name: <input type="text" name="firstname"></td>
+            <td align="right">Last Name: <input type="text" name="lastname"></td>
+          </tr>
+          <tr>
+            <td colspan="2">Address: <input type="text" name="address" size="50"></td>
+          </tr>
+          <tr>
+            <td>City: <input type="text" name="city"></td>
+            <td align="right">State: <input type="text" name="state" size="3"> Zip: <input type="text" name="zip" size="6"></td>
+          </tr>
+          <tr>
+            <td colspan="2">Email Address: <input type="text" name="emailaddr" size="50"></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="Submit"></td>
+            <td align="right"><input type="reset"></td>
+          </tr>
+        </table>
+        <input type="hidden" name="send_email" value="bwchang@my.canyons.edu">
+      </form>
+    `;
+
+    document.getElementById('mainXXX').innerHTML = formHTML;
   }
 
   function checkForm453() {
-    var form = document.customerform;
+    var form = document.forms['customerform'];
     var missingFields = [];
 
     if (!form.firstname.value.trim()) missingFields.push("First Name");
@@ -157,41 +231,52 @@
     if (!form.emailaddr.value.trim()) missingFields.push("Email Address");
 
     if (missingFields.length > 0) {
-      alert("Please fill in the following fields:\n" + missingFields.join(", "));
-      return false; // cancel submit
+      alert("Please fill in the following field(s):\n" + missingFields.join(", "));
+      return false;
     }
-    return true; // allow submit
+    return true;
   }
 
-  // --- Lab 15 - Get products from server (using XMLHttpRequest method) ---
-
+  // Fetch products from server
   function getProduct902(jsonobj) {
     var server = 'https://www.college1.com/getproduct.php';
     var jsonstr = JSON.stringify(jsonobj);
     var xmlhttp = new XMLHttpRequest();
+
     xmlhttp.open("GET", server + "?jsonstr=" + encodeURIComponent(jsonstr), true);
-    xmlhttp.onreadystatechange = function () {
+    xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
-        var replystr = this.responseText;
-        var productObj = JSON.parse(replystr);
+        var obj = JSON.parse(this.responseText);
+
         if (jsonobj.number === "1") {
-          product4 = productObj;
+          product4 = obj;
         } else if (jsonobj.number === "2") {
-          product5 = productObj;
+          product5 = obj;
         }
+
+        // Refresh display if currently showing product4 or product5
+        var mainHTML = document.getElementById('mainXXX').innerHTML;
+        if (product4.name && mainHTML.includes(product4.name)) makeMain(product4);
+        if (product5.name && mainHTML.includes(product5.name)) makeMain(product5);
       }
     };
     xmlhttp.send();
   }
 
-  // --- On page load ---
+  // Initialization on load
+  window.onload = function() {
+    makeMenu();
+    makeMain(product1);
 
-  window.onload = function () {
-    makeMenu294();
-    showProduct(product1);
+    // Empty product4 and product5 initially
+    product4 = {};
+    product5 = {};
+
+    // Fetch products asynchronously
     getProduct902(jsonobj4);
     getProduct902(jsonobj5);
   };
+
 </script>
 
 </body>
